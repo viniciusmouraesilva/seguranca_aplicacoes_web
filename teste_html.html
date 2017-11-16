@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	
+	<meta name="description" content="Aprenda sobre as vulnerabilidades WEB e como se proteger.">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<meta http-equiv="Content-Security-Policy" content="form-action 'none'; style-src 'self'; script-src 'none'; img-src 'self'; font-src 'none'">
+	
+	<title>Segurança em Aplicações WEB</title>
+	
+	<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+	<header>
+		<h1>Segurança em Aplicações WEB</h1>
+		<p>GitHub</p>
+	</header>
+	
+	<nav>
+		<ul>
+			<li><a href="#xss">XSS</a></li>
+			<li><a href="#sqlinjection">SQL Injecion</li></a></li>
+			<li><a href="#csrf">CSRF</a></li>
+		</ul>
+	</nav>
+
+	<section class="conteudo">
+		
+		<article class="introucao" id="introducao">
+			<h2>Introdução</h2>
+			<p>Você já parou para pensar se as suas aplicações WEB tem algum tipo de sergurança contra ataques de usuários mal-intencionados. Se você não sabe por onde começar, já entraremos no assunto, e você protegerá suas aplicações contra as diversas vulnerabilidades que um aplicação pode ter. 
+			Saiba de antemão que nada é <strong>100% seguro na WEB</strong>, mas não se desespere, faça o máximo e estude de diversas fontes como se proteger.</p>
+			<p>As aplicações WEB, diferentemente de uma aplicação desktop pode ter uma visita inesperada que bagunça a casa e vai embora. Basicamente, as aplicações WEB precisam fortemente da implementação de meios combatentes de vulnerabilidades.</p>
+			<p>Conforme introduzido, você conhece a primeira vulnerabilidade que seu Website pode não estar preparado para enfrentar.</p>
+		</article>
+		
+		<article class="XSS" id="xss">
+			<h2>XSS</h2>
+			<p>Antes de comerçamos a falar sobre <strong>XSS</strong> ou também conhecido como <strong>CROSS-SITE-SCRIPTING</strong>, vou te fazer uma pergunta. Sua aplicação possui algum formulário de contato, quem sabe talvez, forumlário de cadastro? Responda. Ela tem não é mesmo? 
+			Se você possui um formulário de cadastros que depois de cadastrar os dados exibe ele em outro lugar, servirá de exemplo.</p>
+			<p class="texto-alternativo">Colocorei links relativo aos temas abordados mas em relação aos exemplos desse exposto sobre segurança, será realizado na linguagem PHP.</p>
+			<pre>
+				if($a == $b) {
+					echo $b;
+				}
+			</pre>
+			<p>Voltando ao assunto XSS, você precisa conhecer o JavaScript, linguagem muito utlizado no mundo WEB que você terá que aprender algum dia (Estou tentando também).</p>
+			<img src="imagens/formulario-contato.png" alt="formulário de contato. exemplo para XSS" class="imagens">
+		</article>
+		
+		<article class="sqlinjection" id="sqlinjection">
+			<h2>SQL Injection</h2>
+			<p>SQL injection, um ataque bem popular a sites na internet, se não, o mais popular. Comandos SQL que você utiliza para escrever, alterar, excluir os dados dentro de formulários que podem ou não estar vulneráveis. Se uma aplicação estiver vulnerável ao SQL injection, um comando como ' drop table usuarios; causaria problemas. No singelo exemplo, supondo que exista uma tabela usuários, ela seria excluída (da para assustar, não é mesmo?). Uma das formas de se proteger é utilizar de prepared statements, declarações preparadas, que reserva espaços para cada dado que será apresentado para o comando SQL. Se você programa na linguagem PHP, pesquise por PDO, uma forma de acesso aos dados com abstração, exemplo, utilizando as mesmas funções para acessar os dados independente do banco de dados.</p>
+		</article>
+		
+		<article class="csrf" id="csrf">
+			<h2>CSRF</h2>
+		</article>
+		
+	</section>
+</body>	
+</html>
