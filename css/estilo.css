@@ -25,6 +25,10 @@ header > h1 {
 	font-family: sans-serif, Georgia, serif;
 }
 
+header a {
+	color: white;
+}
+
 header p {
 	font-size: 1.5em;
 	font-family: sans-serif, Georgia, serif;
@@ -86,6 +90,7 @@ nav ul li a {
 	letter-spacing: 1px;
 	color: rgb(65,65,65);
 	line-height: 2;
+	margin-top: 25px;
 }
 
 section h2 {
@@ -95,24 +100,21 @@ section h2 {
 
 /* article */
 article[id] {
-	margin-top: 58px;
+	margin-top: 102px;
 }
 
 article h2 {
 	padding-bottom: 15px;
 }
 
-/* codigós de pre da classe .conteudo */
-/*.codigos {
-	display: flex;
-	flex-direction: row;
-	width: 100%;
-	background-color: red;
-} */
-
-pre {
-	width: 100%;
+/* codigos */
+code {
 	font-size: 2em;
+	color: red;
+} 
+
+.codigo {
+	margin-bottom: 15px;
 }
 
 /* imagens */

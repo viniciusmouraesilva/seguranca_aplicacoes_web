@@ -42,11 +42,13 @@
 			<p>Antes de comerçamos a falar sobre <strong>XSS</strong> ou também conhecido como <strong>CROSS-SITE-SCRIPTING</strong>, vou te fazer uma pergunta. Sua aplicação possui algum formulário de contato, quem sabe talvez, forumlário de cadastro? Responda. Ela tem não é mesmo? 
 			Se você possui um formulário de cadastros que depois de cadastrar os dados exibe ele em outro lugar, servirá de exemplo.</p>
 			<p class="texto-alternativo">Colocorei links relativo aos temas abordados mas em relação aos exemplos desse exposto sobre segurança, será realizado na linguagem PHP.</p>
-			<pre>
-				if($a == $b) {
-					echo $b;
+			<div class="codigo">
+				<code>
+				if($a == $b) {<br>
+					&nbsp;&nbsp;&nbsp; echo $b;</br>
 				}
-			</pre>
+				</code>
+			</div>
 			<p>Voltando ao assunto XSS, você precisa conhecer o JavaScript, linguagem muito utlizado no mundo WEB que você terá que aprender algum dia (Estou tentando também).</p>
 			<img src="imagens/formulario-contato.png" alt="formulário de contato. exemplo para XSS" class="imagens">
 		</article>
