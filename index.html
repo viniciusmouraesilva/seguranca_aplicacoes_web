@@ -39,18 +39,23 @@
 		
 		<article class="XSS" id="xss">
 			<h2>XSS</h2>
-			<p>Antes de comerçamos a falar sobre <strong>XSS</strong> ou também conhecido como <strong>CROSS-SITE-SCRIPTING</strong>, vou te fazer uma pergunta. Sua aplicação possui algum formulário de contato, quem sabe talvez, forumlário de cadastro? Responda. Ela tem não é mesmo? 
-			Se você possui um formulário de cadastros que depois de cadastrar os dados exibe ele em outro lugar, servirá de exemplo.</p>
+			<p>Antes de comerçamos a falar sobre <strong>XSS</strong> ou também conhecido como <strong>CROSS-SITE-SCRIPTING</strong>, vou te fazer uma pergunta. Sua aplicação possui algum formulário de contato? Quem sabe talvez forumlário de cadastro? Responda. Ela tem não é mesmo? 
+			Se você possui um formulário de cadastros que depois de cadastrar os dados exibe ele em outro lugar, servirá de exemplo. Contudo, você não precisa construir um para realizar o teste.</p>
 			<p class="texto-alternativo">Colocorei links relativo aos temas abordados mas em relação aos exemplos desse exposto sobre segurança, será realizado na linguagem PHP.</p>
-			<div class="codigo">
-				<code>
-				if($a == $b) {<br>
-					&nbsp;&nbsp;&nbsp; echo $b;</br>
-				}
-				</code>
-			</div>
-			<p>Voltando ao assunto XSS, você precisa conhecer o JavaScript, linguagem muito utlizado no mundo WEB que você terá que aprender algum dia (Estou tentando também).</p>
+			<p>Voltando ao assunto XSS, vou te mostrar um comando JavaScript, linguagem muito utlizado no mundo WEB que você pode se deparar algum dia.</p>
+			<p>Veja abaixo esse simples formulário de contato: </p>
 			<img src="imagens/formulario-contato.png" alt="formulário de contato. exemplo para XSS" class="imagens">
+			<p>Agora, o que aconteceria se alguém digitasse o seguinte comando e enviasse o formulário: </p>
+			<img src="imagens/xss_no_formulario.png" alt="digitando comando alert do JavaScript em formulário" class="imagens">
+			<p>Você pode baixar esse exemplo para utilização: <a href="https://github.com/viniciusmouraesilva/xss_ataque">XSS_formulario</a></p>
+			<p>Ao realizar o cadastro do contato, algo pode ter aparecido na sua tela confirmando a vulnerabilidade ao XSS dessa aplicação.</p>
+			<img src="imagens/alert.png" alt="pop up de JavaScript" class="imagens">
+			<p>Mas como isso aconteceu você deve estar se perguntando. Simplesmente por que você enviou um comando JavaScript(alert que exibe um pop up na tela) e ao cadastrar o contato e exibi-ló, o HTML interpretou como um comando JavaScript, mas também, executou mostrando em sua tela. Ainda parace um pouco confuso mas, o detalhe é que o JavaScript funciona do lado do cliente. Eu quero dizer que ao enviar o código JavaScript e ser cadastrado no banco em prol de exibir depois; executa o código JavaScript de alerta.
+			Aperte o direito do mouse e seleciona a opção exibir código fonte da página e procure pelo local onde é exibido o código de alerta do JavaScript.</p>
+			<img src="imagens/codigo_fonte_com_codigo_js.png" alt="código fonte com código JavaSscript" class="imagens">
+			<p>Realmente, foi executado algo que você poderia não estar esperando  e no mais simples exemplo você teria essa mensagem carregada a cada atualização da sua página. Algo relacionado seria a utilização de códigos JavaScript que redirecionasse o usuário através da vulnerabilidade desse formulário para uma página falsa do atacante.</p>
+			<p>Parece que temos problemas e é hora de resolvê-los. O ideal para se proteger é filtrar a entrada e de preferência a sáida de todos os dados que entrão em sua aplicação.</p>
+			<p>Em PHP pode se encontrar diversas funcionalidades para filtrar dados. Cada uma com um determinado próposito e para combater o XSS vamos primeiro falar sobre a função htmlentities().</p>
 		</article>
 		
 		<article class="sqlinjection" id="sqlinjection">

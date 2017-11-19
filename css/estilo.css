@@ -107,6 +107,10 @@ article h2 {
 	padding-bottom: 15px;
 }
 
+article a {
+	color: black;
+}
+
 /* codigos */
 code {
 	font-size: 2em;
