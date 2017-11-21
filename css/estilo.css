@@ -113,12 +113,20 @@ article a {
 
 /* codigos */
 code {
+	margin-top: 15px;
 	font-size: 2em;
 	color: red;
 } 
 
 .codigo {
+	display: flex;
+	flex-flow: column;
+	width: 100%;
 	margin-bottom: 15px;
+}
+
+.special {
+	color: blue;
 }
 
 /* imagens */
@@ -128,6 +136,19 @@ code {
 	background-repeat: no-repeat;
 	width: 100%;
 	margin: 20px 0;
+}
+
+/* alerta */
+.alerta {
+	border: 2px solid black;
+}
+
+.alerta p, h3 {
+	margin: 7px;
+}
+
+.alerta h3 {
+	font-size: 1.4em;
 }
 
 /* media query configurações */
