@@ -53,7 +53,7 @@
 			<img src="imagens/formulario-contato.png" alt="formulário de contato. exemplo para XSS" class="imagens">
 			<p>Agora, o que aconteceria se alguém digitasse o seguinte comando e enviasse o formulário: <strong>&lt;script&gt;alert(&quot;XSS HACKED&quot;);&lt;/script&gt;</strong></p>
 			<img src="imagens/xss_no_formulario.png" alt="digitando comando alert do JavaScript em formulário" class="imagens">
-			<p><em>Você pode baixar esse exemplo para utilização:</em> <a href="https://github.com/viniciusmouraesilva/xss_ataque" target="blank">https://github.com/viniciusmouraesilva/xss_ataque</a></p>
+			<p><em>Você pode baixar esse exemplo para utilização:</em> <a href="https://github.com/viniciusmouraesilva/xss_ataque" target="blank">GitHub com código para usar.</a></p>
 			<p>Ao realizar o cadastro do contato, algo pode ter aparecido na sua tela confirmando a vulnerabilidade ao XSS dessa aplicação.</p>
 			<img src="imagens/alert.png" alt="pop up de JavaScript" class="imagens">
 			<p>Mas como isso aconteceu você deve estar se perguntando. Simplesmente por que você enviou um comando JavaScript(alert que exibe um pop up na tela) e ao cadastrar o contato e exibi-ló, o HTML interpretou como um comando JavaScript, mas também, executou mostrando em sua tela. Ainda parace um pouco confuso mas, o detalhe é que o JavaScript funciona do lado do cliente. Eu quero dizer que ao enviar o código JavaScript e ser cadastrado no banco em prol de exibir depois; executa o código JavaScript de alerta.
@@ -68,7 +68,7 @@
 			</div>
 			<img src="imagens/entidade_html.png" alt="código mostrando como foi digitado o sinal de menor" class="imagens">
 			<p>Foi escrito <strong>&amplt;</strong> para que aparecesse o sinal de menor.</p>
-			<p><em>Para saber mais sobre entidades HTML visite</em> <a href="https://www.w3schools.com/html/html_entities.asp" target="blank">https://www.w3schools.com/html/html_entities.asp</a></p>
+			<p><em>Para saber mais sobre entidades HTML visite</em> <a href="https://www.w3schools.com/html/html_entities.asp" target="blank">W3schools entidades</a></p>
 			<p>Mas afinal o que isso tem haver? Você se lembra do comando JavaScript que exibe o pop up na tela? Não. Sem problemas, vamos relembrar que a tag de <strong>&lt;script&gt;</strong> do JavaScript continha sinal de menor e maior para ser escrita. Então, é onde utilizamos a função <strong>htmlentities</strong> do PHP.<p>
 			<p>O que ela faz é converter, caso seja enviado, caracteres que possam ser convertidos em entidades HTML. E nessa histório toda, se alguém te enviasse aquele comando JavaScript, seria convertida os sinas de maior e menor para entidades HTML e não seria executado o pop up na tela. Pois, agora são entidades do HTML e não representação para comandos JavaScript.</p>
 			<p>Agora um exemplo de código PHP que filtra a saída dos dados com <strong>htmlentities</strong> e não exibe mais o pop up do JavaScript em nosso formulário de contato.</p>
@@ -113,8 +113,8 @@
 			<div class="alerta">
 				<h3>Dica</h3>
 				<p>Quando eu disse o mais popular não estou dizendo da boca para fora. Essa base vem do projeto <strong>OWSP Top Ten</strong> – com os 10 ataques mais populares a websites na internet. A OWSP é reconhecida entre desenvolvedores como fonte de informação sobre segurança e é quase obrigatório que você leia sobre as ataques catalógados pela OWSP.</p>
-				<p><em>Página do projeto Top Ten OWSP: </em><a href="https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project" target="blank">https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project</a></p>
-				<p><em>Página Principal da OWSP: </em><a href="https://www.owasp.org/index.php/Main_Page" target="blank">https://www.owasp.org/index.php/Main_Page</a></p>
+				<p><em>Página do projeto Top Ten OWSP: </em><a href="https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project" target="blank">OWSP Top Ten</a></p>
+				<p><em>Página Principal da OWSP: </em><a href="https://www.owasp.org/index.php/Main_Page" target="blank">Página Principal OWSP</a></p>
 			</div>
 			<p>Se uma aplicação estiver vulnerável ao SQL injection, um comando como <strong>'); drop table usuarios; --</strong> causaria problemas. No singelo exemplo, supondo que exista uma tabela usuários, ela seria excluída (da para assustar, não é mesmo?).</p>
 			<p>Uma das formas de se proteger é utilizar de prepared statements, declarações preparadas, que reserva espaços para cada dado que será apresentado para o comando SQL. Se você programa na linguagem PHP, pesquise por PDO, uma forma de acesso aos dados com abstração, exemplo, utilizando as mesmas funções para acessar os dados independente do banco de dados.</p>
