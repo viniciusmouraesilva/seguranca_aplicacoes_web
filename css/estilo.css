@@ -82,6 +82,7 @@ nav ul li a {
 	flex-direction: column;
 	margin: 0 auto;
 	width: 85%;
+	height: auto;
 }
 
 .conteudo p {
@@ -104,6 +105,7 @@ article[id] {
 }
 
 article h2 {
+	padding-top: 20px;
 	padding-bottom: 15px;
 }
 
@@ -171,6 +173,7 @@ code {
 		display: flex;
 		flex-direction: column;
 		width: 60%;
+		height: auto;
 	}
 	
 	/* menu de navegação */

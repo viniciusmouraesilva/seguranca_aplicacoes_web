@@ -3,25 +3,26 @@
 <head>
 	<meta charset="UTF-8">
 	
-	<title>Segurança em Aplicações WEB</title>
+	<title>Segurança PHP | Se proteja do XSS, SQL Injection, CSRF, SESSION HIJACKING... </title>
 	
-	<meta name="description" content="Aprenda sobre as vulnerabilidades WEB e como se proteger.">
+	<meta name="description" content="Aprenda sobre SQL injection, XSS, CSRF, entre outros e proteja suas aplicações.">
 	
 	<link rel="canonical" href="https://viniciusmouraesilva.github.io/seguranca_aplicacoes_web/">
 	
 	<meta name="author" content="Vinícius Moura">
 	
-	<meta name="robots" content="index">
+	<meta name="robots" content="index,follow,archive">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	<meta http-equiv="Content-Security-Policy" content="form-action 'none'; style-src 'self'; script-src 'none'; img-src 'self'; font-src 'none'">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; form-action 'none'; frame-src 'none'; style-src 'self'; script-src 'none'; img-src 'self'; font-src 'none'">
 	
 	<link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
 	<header>
-		<h1>Segurança em Aplicações WEB</h1>
+		<h1>Segurança PHP</h1>
+		<!-- <h2>Destrua o XSS, SQL Injection, CSRF entre outros... </h2> -->
 		<p><a href="https://github.com/viniciusmouraesilva/seguranca_aplicacoes_web">GitHub</a></p>
 	</header>
 	
@@ -48,63 +49,83 @@
 			<p>Antes de comerçamos a falar sobre <strong>XSS</strong> ou também conhecido como <strong>CROSS-SITE-SCRIPTING</strong>, vou te fazer uma pergunta. Sua aplicação possui algum formulário de contato? Quem sabe talvez forumlário de cadastro? Responda. Ela tem não é mesmo? 
 			Se você possui um formulário de cadastros que depois de cadastrar os dados exibe ele em outro lugar, servirá de exemplo. Contudo, você não precisa construir um para realizar o teste.</p>
 			<p class="texto-alternativo">Colocorei links relativo aos temas abordados mas em relação aos exemplos desse exposto sobre segurança, será realizado na linguagem PHP.</p>
-			<p>Voltando ao assunto XSS, vou te mostrar um comando JavaScript, linguagem muito utlizado no mundo WEB que você pode se deparar algum dia.</p>
+			
+			<h2>Javascript XSS</h2>
+			<p>Voltando ao assunto XSS, vou te mostrar um comando do JavaScript. Linguagem muito utlizado no mundo WEB que você pode se deparar algum dia.</p>
 			<p>Veja abaixo esse simples formulário de contato: </p>
-			<img src="imagens/formulario-contato.png" alt="formulário de contato. exemplo para XSS" class="imagens">
+			
+			<img src="imagens/formulario_de_contato.png" alt="Formulário de contato. Exemplo para XSS" class="imagens">
+			
 			<p>Agora, o que aconteceria se alguém digitasse o seguinte comando e enviasse o formulário: <strong>&lt;script&gt;alert(&quot;XSS HACKED&quot;);&lt;/script&gt;</strong></p>
-			<img src="imagens/xss_no_formulario.png" alt="digitando comando alert do JavaScript em formulário" class="imagens">
-			<p><em>Você pode baixar esse exemplo para utilização:</em> <a href="https://github.com/viniciusmouraesilva/xss_ataque" target="blank">GitHub com código para usar.</a></p>
+			
+			<img src="imagens/xss_no_formulario_contato.png" alt="digitando comando alert do JavaScript em formulário de contato" class="imagens">
+			
+			<p><em>Você pode baixar esse exemplo para utilização:</em> <a href="https://github.com/viniciusmouraesilva/xss_ataque" target="blank">Código de exemplo XSS.</a></p>
 			<p>Ao realizar o cadastro do contato, algo pode ter aparecido na sua tela confirmando a vulnerabilidade ao XSS dessa aplicação.</p>
-			<img src="imagens/alert.png" alt="pop up de JavaScript" class="imagens">
+			<img src="imagens/alert_javascript.png" alt="alert do JavaScript exibindo pop up na tela" class="imagens">
+			
+			<h2>O que é XSS, afinal?</h2>
+			<p>Você percebeu que eu passei primeiro pela linguagem de programação JavaScript para descrever o ataque de XSS, então, o CROSS-SITE-SCRIPTING(XSS) nada mais nada menos utilza dos comandos de JavaScript para explorar vulnerabilidades em websites. Fique atento, não é somente utilizado para atacar os formulários HTML.</p>
+			
+			<h2>Como o XSS funciona e como se proteger</h2>
 			<p>Mas como isso aconteceu você deve estar se perguntando. Simplesmente por que você enviou um comando JavaScript(alert que exibe um pop up na tela) e ao cadastrar o contato e exibi-ló, o HTML interpretou como um comando JavaScript, mas também, executou mostrando em sua tela. Ainda parace um pouco confuso mas, o detalhe é que o JavaScript funciona do lado do cliente. Eu quero dizer que ao enviar o código JavaScript e ser cadastrado no banco em prol de exibir depois; executa o código JavaScript de alerta.
 			Aperte o direito do mouse e seleciona a opção exibir código fonte da página e procure pelo local onde é exibido o código de alerta do JavaScript.</p>
+			
 			<img src="imagens/codigo_fonte_com_codigo_js.png" alt="código fonte com código JavaSscript" class="imagens">
+			
 			<p>Realmente, foi executado algo que você poderia não estar esperando  e no mais simples exemplo você teria essa mensagem carregada a cada atualização da sua página. Algo relacionado seria a utilização de códigos JavaScript que redirecionasse o usuário através da vulnerabilidade desse formulário para uma página falsa do atacante.</p>
 			<p>Parece que temos problemas e é hora de resolvê-los. O ideal para se proteger é filtrar a entrada e de preferência a sáida de todos os dados que entrão em sua aplicação.</p>
 			<p>Em PHP pode se encontrar diversas funcionalidades para filtrar dados. Cada uma com um determinado próposito e para combater o XSS vamos primeiro falar sobre a função <strong>htmlentities()</strong>.</p>
+			
 			<div class="alerta">
 				<h3>Alerta</h3>
 				<p>Antes de falar sobre a função htmlentities. Você precisa entender o que são entidades em HTML. Nada mais nada menos do que caracteres reservados do HTML. Por exemplo: se você quiser colocar na sua página HTML o seguinte sinal &lt; de menor, você não digita através do seu teclado diretamente, e sim, em forma de entidade que o HTML vai interpretar. Como assim em forma de entidade? Veja o que eu escrevi através da imagem abaixo para que aparecesse o sinal de menor nessa página HTML: </p>
 			</div>
-			<img src="imagens/entidade_html.png" alt="código mostrando como foi digitado o sinal de menor" class="imagens">
+			
+			<img src="imagens/entidade_html_sinal_de_menor.png" alt="&lt; entidade HTML que representa o sinal de menor " class="imagens">
+			
 			<p>Foi escrito <strong>&amplt;</strong> para que aparecesse o sinal de menor.</p>
 			<p><em>Para saber mais sobre entidades HTML visite</em> <a href="https://www.w3schools.com/html/html_entities.asp" target="blank">W3schools entidades</a></p>
 			<p>Mas afinal o que isso tem haver? Você se lembra do comando JavaScript que exibe o pop up na tela? Não. Sem problemas, vamos relembrar que a tag de <strong>&lt;script&gt;</strong> do JavaScript continha sinal de menor e maior para ser escrita. Então, é onde utilizamos a função <strong>htmlentities</strong> do PHP.<p>
 			<p>O que ela faz é converter, caso seja enviado, caracteres que possam ser convertidos em entidades HTML. E nessa histório toda, se alguém te enviasse aquele comando JavaScript, seria convertida os sinas de maior e menor para entidades HTML e não seria executado o pop up na tela. Pois, agora são entidades do HTML e não representação para comandos JavaScript.</p>
-			<p>Agora um exemplo de código PHP que filtra a saída dos dados com <strong>htmlentities</strong> e não exibe mais o pop up do JavaScript em nosso formulário de contato.</p>
+			<p>Agora um exemplo de código PHP que escapa a saída dos dados com <strong>htmlentities</strong> e não exibe mais o pop up do JavaScript em nosso formulário de contato.</p>
 			<code class="codigo">
 				<span class="special">&lt;?php foreach($contatos as $contato): ?&gt;</span>
 						&nbsp;&nbsp;&nbsp;&lt;tr&gt;</br>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;<span class="special">&lt;?php echo htmlentities($contato[&quot;nome&quot;]); ?&gt;</span>&lt;/td&gt;<br>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;<span class="special">&lt;?php echo htmlentities($contato[&quot;email&quot;]); ?&gt;</span>&lt;/td&gt;<br>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;<span class="special">&lt;?php echo htmlentities($contato[&quot;mensagem&quot;]); ?&gt;</span>&lt;/td&gt;<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;<span class="special">&lt;?php echo htmlentities(<br>$contato[&quot;nome&quot;]<br>); ?&gt;</span>&lt;/td&gt;<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;<span class="special">&lt;?php echo htmlentities(<br>$contato[&quot;email&quot;]<br>); ?&gt;</span>&lt;/td&gt;<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;<span class="special">&lt;?php echo htmlentities(<br>$contato[<br>&quot;mensagem&quot;]); ?&gt;</span>&lt;/td&gt;<br>
 						&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>
 				<span class="special">&lt;?php endforeach; ?&gt;</span>
 			</code>
-			<p>No código acima, ao exibir os meus contatos em uma tabela eu validei a saída respectivamente de nome, email e mensagem com o htmlentities que nesse caso evita a execução de códigos JavaScript na saída dos dados.</p>
-			<img src="imagens/cadastrou_contato_xss.png" alt="cadastro do comando XSS na tabela de contatos" class="imagens">
+			
+			<p>No código acima, ao exibir os meus contatos em uma tabela, escapei a saída respectivamente de nome, email e mensagem com o htmlentities que nesse caso evita a execução de códigos JavaScript na saída dos dados.</p>
+			<img src="imagens/codigo_alert_js_cadastrado.png" alt="código alert do JavaScript cadastrado na tabela de contatos" class="imagens">
+			
 			<p>O contato é cadastro e o pop up não é exibido mais após o cadastro do contato.</p>
-			<p>Você também pode validar a saída enquanto o usuário preence o formulário para não exibir códigos JavaScript, caso tenha um erro de preencimento no formulário. Claro que um usuário bem intencionado não vai digitar códigos JavaScript mas, lembre-se, <strong>não confie nos usuários</strong></p>
+			
+			<p>Você também pode escapar a saída enquanto o usuário preence o formulário para não exibir códigos JavaScript, caso tenha um erro de preencimento no formulário. Claro que um usuário bem intencionado não vai digitar códigos JavaScript mas, lembre-se, <strong>não confie nos usuários</strong></p>
 			<code class="codigo">
 				&lt;form method=&quot;POST&quot;&gt;<br>
 					&nbsp;&nbsp;&nbsp;&lt;label&gt;Nome<br>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;&lt;input type=&quot;text&quot; name=&quot;nome&quot; <br>value=&quot;<span class="special">&lt;?php echo htmlentities($nome); ?&gt;</span>&quot;&gt;&lt;/p&gt;</br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;&lt;input type=&quot;text&quot; name=&quot;nome&quot; <br>value=&quot;<span class="special">&lt;?php echo htmlentities(<br>$nome); ?&gt;</span>&quot;&gt;&lt;/p&gt;</br>
 					&nbsp;&nbsp;&nbsp;&lt;/label&gt;
 					<p></p>
 					&nbsp;&nbsp;&nbsp;&lt;label&gt;Email<br>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;&lt;input type=&quot;text&quot; name=&quot;email&quot; <br>value=&quot;<span class="special">&lt;?php echo htmlentities($email); ?&gt;</span>&quot;&gt;&lt;/p&gt;<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;&lt;input type=&quot;text&quot; name=&quot;email&quot; <br>value=&quot;<span class="special">&lt;?php echo htmlentities(<br>$email); ?&gt;</span>&quot;&gt;&lt;/p&gt;<br>
 					&nbsp;&nbsp;&nbsp;&lt;/label&gt;
 					<p></p>
 					&nbsp;&nbsp;&nbsp;&lt;label&gt;&lt;p&gt;Descrição do Contato&lt;/p&gt;<br>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;textarea name=&quot;mensagem&quot; cols=&quot;40&quot; rows=&quot;5&quot;><br><span class="special">&lt;?php echo htmlentities($mensagem); ?&gt;</span>&lt;/textarea&gt;<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;textarea name=&quot;mensagem&quot; cols=&quot;40&quot; rows=&quot;5&quot;><br><span class="special">&lt;?php echo htmlentities(<br>$mensagem); ?&gt;</span>&lt;/textarea&gt;<br>
 					&nbsp;&nbsp;&nbsp;&lt;/label&gt;
 					<p></p>
 					&nbsp;&nbsp;&nbsp;&lt;p&gt;&lt;input type=&quot;submit&quot; value=&quot;Enviar&quot;>&lt;/p&gt;
 					<br>
 				&lt;/form&gt;
 			</code>
-			<p>Como o assunto de filtrar a saída fica batido alguma das vezes, resolvi colocar ele em primeira instância e depois validar a entrada dos dados.</p>
-			<p>Conforme validado a saída, vamos validar a entrada contra XSS. O que faremos é filtrar os dados ao serem enviados, só que, agora utilizaremos outra função do PHP para resolução do mesmo.</p>
+			
+			<p>Como o assunto de escapar a saída fica batido alguma das vezes, resolvi colocar ele em primeira instância e depois filtrar a entrada dos dados.</p>
+			<p>Conforme escapado a saída, vamos filtrar a entrada contra XSS. O que faremos é filtrar os dados ao serem enviados, só que, agora utilizaremos outra função do PHP para resolução do mesmo.</p>
 		</article>
 		
 		<article class="sqlinjection" id="sqlinjection">
@@ -112,7 +133,7 @@
 			<p>SQL injection, um ataque bem popular a sites na internet, se não, o mais popular. Comandos SQL que você utiliza para escrever, alterar, excluir os dados dentro de formulários que podem ou não estar vulneráveis.</p>
 			<div class="alerta">
 				<h3>Dica</h3>
-				<p>Quando eu disse o mais popular não estou dizendo da boca para fora. Essa base vem do projeto <strong>OWSP Top Ten</strong> – com os 10 ataques mais populares a websites na internet. A OWSP é reconhecida entre desenvolvedores como fonte de informação sobre segurança e é quase obrigatório que você leia sobre as ataques catalógados pela OWSP.</p>
+				<p>Quando eu disse o mais popular não estou dizendo da boca para fora. Essa base vem do projeto <strong>OWSP Top Ten</strong> – com os 10 ataques mais populares a websites na internet. A OWSP é reconhecida entre desenvolvedores como fonte de informação sobre segurança e é quase obrigatório que você leia sobre os ataques catalógados pela OWSP.</p>
 				<p><em>Página do projeto Top Ten OWSP: </em><a href="https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project" target="blank">OWSP Top Ten</a></p>
 				<p><em>Página Principal da OWSP: </em><a href="https://www.owasp.org/index.php/Main_Page" target="blank">Página Principal OWSP</a></p>
 			</div>

@@ -9,3 +9,5 @@ satisfy all
 </files>
 
 Options -Indexes
+
+Header set X-Frame-Options DENY
