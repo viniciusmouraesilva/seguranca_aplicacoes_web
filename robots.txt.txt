@@ -1,8 +1,0 @@
-User-agent: *
-Disallow: /css
-
-User-agent: *
-Disallow: /* $.htaccess
-
-User-agent: MJ12bot
-Crawl-Delay: 10
